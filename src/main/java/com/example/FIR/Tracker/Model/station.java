@@ -25,25 +25,25 @@ public class station {
   private BigInteger sid;//Station id
 
   @NotBlank
-  private String station_name;
+  private String stationName;
 
   @NotBlank
-  private String Station_Incharge;
+  private String StationIncharge;
 
   @NotBlank
   private String address;
 
   @NotNull
-  private int pin_code;
+  private int pinCode;
 
   @NotNull
-   private BigInteger phone_no;
+   private BigInteger phoneNo;
 
   @NotBlank
   @Email
-  private String Email;
+  private String sEmail;
 
-  private String jurisdictionArea; // Optional: Define the area under the station
+//  private String jurisdictionArea; // Optional: Define the area under the station
 
   private int numberOfOfficers; // Optional: Track officer count
 
