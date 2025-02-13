@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/station")
 public class stationController {
@@ -25,6 +27,11 @@ public class stationController {
         {
             return new ResponseEntity<>(s,HttpStatus.ACCEPTED);
         }
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<station>> allStation(){
+        return new ResponseEntity<>(stationService.allStation(),HttpStatus.OK);
     }
 
 
