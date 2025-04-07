@@ -1,6 +1,6 @@
 package com.example.FIR.Tracker.Model;
 
-
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -18,7 +18,6 @@ import java.math.BigInteger;
 @AllArgsConstructor
 @NoArgsConstructor
 @Document(collection = "station")
-
 public class station {
 
   @Id
@@ -28,26 +27,30 @@ public class station {
   private String stationName;
 
   @NotBlank
-  private String StationIncharge;
-
-  @NotBlank
   private String address;
 
   @NotNull
   private int pinCode;
 
   @NotNull
-   private BigInteger phoneNo;
+  private BigInteger phoneNo;
 
   @NotBlank
   @Email
   private String sEmail;
 
-//  private String jurisdictionArea; // Optional: Define the area under the station
+  // Optional: Define the area under the station
+  // private String jurisdictionArea;
 
-  private int numberOfOfficers; // Optional: Track officer count
+  // Optional: Track officer count
+  private int numberOfOfficers;
 
   private String pass;
+
+  private boolean approval = false;
+
+  @JsonProperty("StationInchargeId")
+  private int StationInchargeId; // Added field to store the HRMS ID of the incharge
 
   public boolean isApproval() {
     return approval;
@@ -57,16 +60,11 @@ public class station {
     this.approval = approval;
   }
 
-  private boolean approval = false;
-
-  public BigInteger getStationInchargeId() {
+  public int getStationInchargeId() {
     return StationInchargeId;
   }
 
-  public void setStationInchargeId(BigInteger stationInchargeId) {
+  public void setStationInchargeId(int stationInchargeId) {
     StationInchargeId = stationInchargeId;
   }
-
-  private BigInteger StationInchargeId;
-
 }

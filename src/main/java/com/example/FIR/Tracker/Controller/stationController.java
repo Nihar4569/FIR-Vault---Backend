@@ -2,6 +2,7 @@ package com.example.FIR.Tracker.Controller;
 
 import com.example.FIR.Tracker.Model.station;
 import com.example.FIR.Tracker.Service.stationService;
+import com.example.FIR.Tracker.Repo.stationRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,9 @@ import java.util.List;
 public class stationController {
     @Autowired
     stationService stationService;
+
+    @Autowired
+    stationRepo stationRepo;
 
     @PostMapping("/add")
     public ResponseEntity<station> add(@RequestBody station s) {
@@ -55,11 +59,8 @@ public class stationController {
             existingStation.setStationName(stationData.getStationName());
         }
 
-        if (stationData.getStationIncharge() != null) {
-            existingStation.setStationIncharge(stationData.getStationIncharge());
-        }
 
-        if (stationData.getStationInchargeId() != null) {
+        if (stationData.getStationInchargeId() != 0) {
             existingStation.setStationInchargeId(stationData.getStationInchargeId());
         }
 
@@ -94,4 +95,17 @@ public class stationController {
         stationService.deleteStation(id);
         return new ResponseEntity<>("Station deleted successfully", HttpStatus.OK);
     }
+
+    @PutMapping("/update/stationIncharge/{id}/{sid}")
+    public ResponseEntity<station> updateStationInc(@PathVariable int id, @PathVariable BigInteger sid){
+        station station = stationService.stationById(sid);
+        station.setStationInchargeId(id);
+        stationRepo.save(station);
+        if(station==null){
+            return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
+        }else{
+            return new ResponseEntity<>(station,HttpStatus.OK);
+        }
+    }
+
 }
