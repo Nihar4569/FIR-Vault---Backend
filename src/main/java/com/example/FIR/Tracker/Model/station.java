@@ -22,7 +22,7 @@ import java.math.BigInteger;
 public class station {
 
   @Id
-  private BigInteger sid;//Station id
+  private BigInteger stationSid; // Station ID (matching the sid field in station model)
 
   @NotBlank
   private String stationName;
@@ -46,5 +46,27 @@ public class station {
 //  private String jurisdictionArea; // Optional: Define the area under the station
 
   private int numberOfOfficers; // Optional: Track officer count
+
+  private String pass;
+
+  public boolean isApproval() {
+    return approval;
+  }
+
+  public void setApproval(boolean approval) {
+    this.approval = approval;
+  }
+
+  private boolean approval = false;
+
+  public BigInteger getStationInchargeId() {
+    return StationInchargeId;
+  }
+
+  public void setStationInchargeId(BigInteger stationInchargeId) {
+    StationInchargeId = stationInchargeId;
+  }
+
+  private BigInteger StationInchargeId;
 
 }

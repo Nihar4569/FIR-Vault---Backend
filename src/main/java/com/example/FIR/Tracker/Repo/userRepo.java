@@ -7,4 +7,5 @@ import java.math.BigInteger;
 
 public interface userRepo extends MongoRepository<user, BigInteger > {
     user findByAid(BigInteger id);
+//    user findByPhone_no(BigInteger phone_no);
 }

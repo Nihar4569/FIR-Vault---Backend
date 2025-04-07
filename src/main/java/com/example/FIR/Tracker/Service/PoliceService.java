@@ -22,4 +22,12 @@ public class PoliceService {
         return policeRepo.findByHrms(id);
 
     }
+
+    public void deletePolice(int id) {
+        police p = policeRepo.findByHrms(id);
+        if (p != null) {
+            policeRepo.delete(p);
+        }
+    }
+
 }

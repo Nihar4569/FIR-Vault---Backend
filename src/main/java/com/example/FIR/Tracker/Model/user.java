@@ -24,6 +24,14 @@ import java.time.LocalDate;
 
 public class user {
 
+    public BigInteger getAid() {
+        return aid;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
     @Id
     private BigInteger aid;
 
@@ -32,6 +40,10 @@ public class user {
 
     @NotNull
     private BigInteger phone_no;
+
+    public BigInteger getPhone_no() {
+        return phone_no;
+    }
 
     @Email
     @NotBlank

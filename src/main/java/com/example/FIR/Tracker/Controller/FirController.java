@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+@CrossOrigin(origins = "http://localhost:3000")
 
 @RestController
 @RequestMapping("/fir")
@@ -54,6 +55,16 @@ public class FirController {
     @PostMapping("/close/{firId}")
     public ResponseEntity<FIR> closeFir(@PathVariable int firId){
         FIR fir = firService.closeFir(firId);
+        if(fir==null){
+            return new ResponseEntity<>(null,HttpStatus.NOT_ACCEPTABLE);
+        }else {
+            return new ResponseEntity<>(fir,HttpStatus.OK);
+        }
+    }
+
+    @PostMapping("/update-status/{firId}/{status}")
+    public ResponseEntity<FIR> updateStatus(@PathVariable int firId, @PathVariable String status){
+        FIR fir = firService.updateStatus(firId, status);
         if(fir==null){
             return new ResponseEntity<>(null,HttpStatus.NOT_ACCEPTABLE);
         }else {

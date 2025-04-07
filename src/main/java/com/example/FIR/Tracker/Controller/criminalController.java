@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.math.BigInteger;
 import java.util.List;
+@CrossOrigin(origins = "http://localhost:3000")
 
 @RestController
 @RequestMapping("/criminal")
@@ -37,11 +38,12 @@ public class criminalController {
        if(c==null){
            return new ResponseEntity<>(null,HttpStatus.NOT_ACCEPTABLE);
        }
-       else
-       {
+       else{
            return new ResponseEntity<>(c,HttpStatus.ACCEPTED);
        }
    }
+
+
 
 
 }

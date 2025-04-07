@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+@CrossOrigin(origins = "http://localhost:3000")
 
 @RestController
 @RequestMapping("/police")
@@ -35,6 +36,55 @@ public class PoliceController {
       }
       else
           return new ResponseEntity<>(p,HttpStatus.OK);
+    }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<police> updatePolice(@PathVariable int id, @RequestBody police policeData) {
+        police existingPolice = policeService.policebyId(id);
+
+        if (existingPolice == null) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+
+        // Update police fields
+        if (policeData.getName() != null) {
+            existingPolice.setName(policeData.getName());
+        }
+
+        if (policeData.getEmail() != null) {
+            existingPolice.setEmail(policeData.getEmail());
+        }
+
+        if (policeData.getPhone_no() != null) {
+            existingPolice.setPhone_no(policeData.getPhone_no());
+        }
+
+        if (policeData.getGender() != null) {
+            existingPolice.setGender(policeData.getGender());
+        }
+
+        if (policeData.getPosition() != null) {
+            existingPolice.setPosition(policeData.getPosition());
+        }
+
+        if (policeData.getStationId() != null) {
+            existingPolice.setStationId(policeData.getStationId());
+        }
+
+        police updatedPolice = policeService.addPolice(existingPolice);
+        return new ResponseEntity<>(updatedPolice, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> deletePolice(@PathVariable int id) {
+        police existingPolice = policeService.policebyId(id);
+
+        if (existingPolice == null) {
+            return new ResponseEntity<>("Police officer not found", HttpStatus.NOT_FOUND);
+        }
+
+        policeService.deletePolice(id);
+        return new ResponseEntity<>("Police officer deleted successfully", HttpStatus.OK);
     }
 
 

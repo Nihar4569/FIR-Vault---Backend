@@ -15,6 +15,7 @@ public class FirService {
     public FIR addFir(FIR fir){
         return firRepo.save(fir);
     }
+
     public List<FIR> allFir(){
         return firRepo.findAll();
     }
@@ -28,18 +29,35 @@ public class FirService {
         if(fir==null){
             return null;
         }
-        else
+        else {
             fir.setOfficerId(OfficerId);
+            // Also update status to "assigned"
+            fir.setStatus("assigned");
+        }
         firRepo.save(fir);
         return fir;
     }
+
     public FIR closeFir(int firId){
         FIR fir = firRepo.findByFirId(firId);
         if(fir == null){
             return null;
         }
-        else
+        else {
             fir.setClose(!fir.getClose());
+            // Also update status to "resolved"
+            fir.setStatus("resolved");
+        }
+        firRepo.save(fir);
+        return fir;
+    }
+
+    public FIR updateStatus(int firId, String status){
+        FIR fir = firRepo.findByFirId(firId);
+        if(fir == null){
+            return null;
+        }
+        fir.setStatus(status);
         firRepo.save(fir);
         return fir;
     }

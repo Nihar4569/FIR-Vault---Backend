@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import java.math.BigInteger;
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:3000")
+
 @RestController
 @RequestMapping("/user")
 
@@ -31,19 +33,43 @@ public class userController {
     @GetMapping("/alluser")
     public ResponseEntity<List<user>> getall(){
             return new ResponseEntity<>(userService.alluser(),HttpStatus.OK);
-        }
+    }
+
     @GetMapping("user/{id}")
     public ResponseEntity<user> getByAid(@PathVariable BigInteger id){
         user u = userService.userbyId(id);
-
         if(u==null){
             return new ResponseEntity<>(null,HttpStatus.NOT_ACCEPTABLE);
         }
-        else
-        {
+        else{
             return new ResponseEntity<>(u,HttpStatus.ACCEPTED);
         }
     }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> deleteUser(@PathVariable BigInteger id) {
+        user existingUser = userService.userbyId(id);
+
+        if (existingUser == null) {
+            return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
+        }
+
+        userService.deleteUser(id);
+        return new ResponseEntity<>("User deleted successfully", HttpStatus.OK);
+    }
+
+//    @PostMapping("/login")
+//    public ResponseEntity<user> login(@RequestBody user obj){
+//        user User = userService.findByPh(obj.getPhone_no());
+//        if(User==null){
+//            return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
+//        }
+//        else if(obj.getPassword() != User.getPassword()){
+//            return new ResponseEntity<>(null,HttpStatus.NOT_ACCEPTABLE);
+//        }else{
+//            return new ResponseEntity<>(User,HttpStatus.OK);
+//        }
+//    }
 
 
 }

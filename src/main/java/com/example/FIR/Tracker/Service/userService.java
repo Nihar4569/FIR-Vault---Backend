@@ -22,4 +22,14 @@ public class userService {
   public user userbyId(BigInteger id){
       return userRepo.findByAid(id);
   }
+  public void deleteUser(BigInteger id) {
+      user u = userRepo.findByAid(id);
+      if (u != null) {
+            userRepo.delete(u);
+      }
+  }
+//  public user findByPh(BigInteger phone_no){
+//      return userRepo.findByPhone_no(phone_no);
+//  }
+
 }
