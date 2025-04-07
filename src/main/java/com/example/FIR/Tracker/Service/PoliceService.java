@@ -29,5 +29,20 @@ public class PoliceService {
             policeRepo.delete(p);
         }
     }
+    public void approve_false(int hrms){
+        police p = policeRepo.findByHrms(hrms);
+        p.setApproval(false);
+        policeRepo.save(p);
+    }
+
+    public police suspendPolice(int id) {
+        police officer = policebyId(id);
+        if (officer != null) {
+            officer.setApproval(false);
+            return policeRepo.save(officer);
+        }
+        return null;
+    }
+
 
 }

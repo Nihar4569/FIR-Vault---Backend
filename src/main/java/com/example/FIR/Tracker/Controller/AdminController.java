@@ -4,6 +4,8 @@ import com.example.FIR.Tracker.Model.Admin;
 import com.example.FIR.Tracker.Model.police;
 import com.example.FIR.Tracker.Model.station;
 import com.example.FIR.Tracker.Service.AdminService;
+import com.example.FIR.Tracker.Service.PoliceService;
+import com.example.FIR.Tracker.Service.stationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +22,12 @@ public class AdminController {
 
     @Autowired
     private AdminService adminService;
+
+    @Autowired
+    private PoliceService policeService;
+
+    @Autowired
+    private stationService stationService;
 
     @PostMapping("/register")
     public ResponseEntity<Admin> registerAdmin(@RequestBody Admin admin) {
@@ -76,9 +84,41 @@ public class AdminController {
         }
     }
 
+
     @PostMapping("/deny-station/{sid}")
     public ResponseEntity<?> denyStation(@PathVariable BigInteger sid) {
         adminService.denyStation(sid);
         return new ResponseEntity<>("Station registration denied", HttpStatus.OK);
+    }
+
+    @PostMapping("/suspend-police/{hrms}")
+    public ResponseEntity<?> suspendPolice(@PathVariable int hrms) {
+        police officer = policeService.policebyId(hrms);
+
+        if (officer == null) {
+            return new ResponseEntity<>("Police officer not found", HttpStatus.NOT_FOUND);
+        }
+
+        // Set approval to false
+        officer.setApproval(false);
+
+        police updatedOfficer = policeService.addPolice(officer);
+        return new ResponseEntity<>("Police officer suspended successfully", HttpStatus.OK);
+    }
+
+    @CrossOrigin(origins = "http://localhost:3000")
+    @PostMapping("/suspend-station/{sid}")
+    public ResponseEntity<?> suspendStation(@PathVariable BigInteger sid) {
+        station existingStation = stationService.stationById(sid);
+
+        if (existingStation == null) {
+            return new ResponseEntity<>("Station not found", HttpStatus.NOT_FOUND);
+        }
+
+        // Set approval to false
+        existingStation.setApproval(false);
+
+        station updatedStation = stationService.addStation(existingStation);
+        return new ResponseEntity<>("Station suspended successfully", HttpStatus.OK);
     }
 }

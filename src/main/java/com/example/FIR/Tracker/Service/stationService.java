@@ -23,12 +23,19 @@ public class stationService {
 
     @Autowired
     userRepo userRepo;
-    public station addStation(station s)
-    {
+
+    public station addStation(station s) {
         return stationRepo.save(s);
     }
-    public List<station> allstation(){return stationRepo.findAll();}
-    public station stationById(BigInteger id){return stationRepo.findByStationSid(id);}
+
+    public List<station> allstation() {
+        return stationRepo.findAll();
+    }
+
+    public station stationById(BigInteger id) {
+        return stationRepo.findByStationSid(id);
+    }
+
     public void deleteStation(BigInteger id) {
         station s = stationRepo.findByStationSid(id);
         if (s != null) {
@@ -36,8 +43,14 @@ public class stationService {
         }
     }
 
-
-
+    public station suspendStation(BigInteger id) {
+        station existingStation = stationById(id);
+        if (existingStation != null) {
+            existingStation.setApproval(false);
+            return stationRepo.save(existingStation);
+        }
+        return null;
+    }
 
 
 }

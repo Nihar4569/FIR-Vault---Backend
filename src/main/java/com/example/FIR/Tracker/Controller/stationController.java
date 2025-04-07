@@ -108,4 +108,19 @@ public class stationController {
         }
     }
 
+    @PostMapping("/suspend/{id}")
+    public ResponseEntity<?> suspendStation(@PathVariable BigInteger id) {
+        station existingStation = stationService.stationById(id);
+
+        if (existingStation == null) {
+            return new ResponseEntity<>("Station not found", HttpStatus.NOT_FOUND);
+        }
+
+        // Set approval to false
+        existingStation.setApproval(false);
+
+        station updatedStation = stationService.addStation(existingStation);
+        return new ResponseEntity<>("Station suspended successfully", HttpStatus.OK);
+    }
+
 }
