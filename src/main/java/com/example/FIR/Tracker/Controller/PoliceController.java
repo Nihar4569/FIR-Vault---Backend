@@ -104,5 +104,25 @@ public class PoliceController {
         return new ResponseEntity<>("Police officer suspended successfully", HttpStatus.OK);
     }
 
+    @PostMapping("/login")
+    public ResponseEntity<police> login(@RequestBody police p) {
+        police officer = policeService.policebyId(p.getHrms());
+
+        if (officer == null) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+
+        // Check if the officer is approved
+        if (!officer.isApproval()) {
+            return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+        }
+
+        // Verify password
+        if (!officer.getPassword().equals(p.getPassword())) {
+            return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+        }
+
+        return new ResponseEntity<>(officer, HttpStatus.OK);
+    }
 
 }

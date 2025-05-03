@@ -67,4 +67,70 @@ public class station {
   public void setStationInchargeId(int stationInchargeId) {
     StationInchargeId = stationInchargeId;
   }
+
+  //Setter & Getter
+
+  public BigInteger getStationSid() {
+    return stationSid;
+  }
+
+  public void setStationSid(BigInteger stationSid) {
+    this.stationSid = stationSid;
+  }
+
+  public String getStationName() {
+    return stationName;
+  }
+
+  public void setStationName(String stationName) {
+    this.stationName = stationName;
+  }
+
+  public String getAddress() {
+    return address;
+  }
+
+  public void setAddress(String address) {
+    this.address = address;
+  }
+
+  public int getPinCode() {
+    return pinCode;
+  }
+
+  public void setPinCode(int pinCode) {
+    this.pinCode = pinCode;
+  }
+
+  public BigInteger getPhoneNo() {
+    return phoneNo;
+  }
+
+  public void setPhoneNo(BigInteger phoneNo) {
+    this.phoneNo = phoneNo;
+  }
+
+  public String getsEmail() {
+    return sEmail;
+  }
+
+  public void setsEmail(String sEmail) {
+    this.sEmail = sEmail;
+  }
+
+  public int getNumberOfOfficers() {
+    return numberOfOfficers;
+  }
+
+  public void setNumberOfOfficers(int numberOfOfficers) {
+    this.numberOfOfficers = numberOfOfficers;
+  }
+
+  public String getPass() {
+    return pass;
+  }
+
+  public void setPass(String pass) {
+    this.pass = pass;
+  }
 }

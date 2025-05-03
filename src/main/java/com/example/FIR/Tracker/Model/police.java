@@ -70,4 +70,61 @@ public class police {
 
     private boolean approval = false;
 
+    //Setter & Getter
+
+    public int getHrms() {
+        return hrms;
+    }
+
+    public void setHrms(int hrms) {
+        this.hrms = hrms;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public BigInteger getPhone_no() {
+        return phone_no;
+    }
+
+    public void setPhone_no(BigInteger phone_no) {
+        this.phone_no = phone_no;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public int getFirId() {
+        return firId;
+    }
+
+    public void setFirId(int firId) {
+        this.firId = firId;
+    }
 }

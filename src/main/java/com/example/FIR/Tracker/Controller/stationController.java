@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.math.BigInteger;
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -76,8 +77,8 @@ public class stationController {
             existingStation.setPhoneNo(stationData.getPhoneNo());
         }
 
-        if (stationData.getSEmail() != null) {
-            existingStation.setSEmail(stationData.getSEmail());
+        if (stationData.getsEmail() != null) {
+            existingStation.setsEmail(stationData.getsEmail());
         }
 
         station updatedStation = stationService.addStation(existingStation);
@@ -121,6 +122,50 @@ public class stationController {
 
         station updatedStation = stationService.addStation(existingStation);
         return new ResponseEntity<>("Station suspended successfully", HttpStatus.OK);
+    }
+
+    // Add this to your stationController.java
+
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody Map<String, String> credentials) {
+        try {
+            // Get stationSid and password from request
+            String stationSidStr = credentials.get("stationSid");
+            String password = credentials.get("pass");
+
+            if (stationSidStr == null || password == null) {
+                return new ResponseEntity<>("Station ID and password are required", HttpStatus.BAD_REQUEST);
+            }
+
+            // Convert stationSid to BigInteger
+            BigInteger stationSid;
+            try {
+                stationSid = new BigInteger(stationSidStr);
+            } catch (NumberFormatException e) {
+                return new ResponseEntity<>("Invalid station ID format", HttpStatus.BAD_REQUEST);
+            }
+
+            // Get the station by ID
+            station stationObj = stationService.stationById(stationSid);
+
+            if (stationObj == null) {
+                return new ResponseEntity<>("Station not found", HttpStatus.NOT_FOUND);
+            }
+
+            // Verify password and approval status
+            if (!stationObj.getPass().equals(password)) {
+                return new ResponseEntity<>("Invalid credentials", HttpStatus.UNAUTHORIZED);
+            }
+
+            if (!stationObj.isApproval()) {
+                return new ResponseEntity<>("Station is not approved yet", HttpStatus.FORBIDDEN);
+            }
+
+            // Return station details to client
+            return new ResponseEntity<>(stationObj, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("An error occurred: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
 }

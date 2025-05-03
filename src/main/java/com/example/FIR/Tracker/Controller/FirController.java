@@ -7,7 +7,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigInteger;
 import java.util.List;
+import java.util.Map;
+
 @CrossOrigin(origins = "http://localhost:3000")
 
 @RestController
@@ -70,5 +73,22 @@ public class FirController {
         }else {
             return new ResponseEntity<>(fir,HttpStatus.OK);
         }
+    }
+    @PutMapping("/update/{id}")
+    public ResponseEntity<FIR> updateFIR(@PathVariable int id, @RequestBody Map<String, Object> updates) {
+        FIR fir = firService.getfir(id);
+        if (fir == null) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+
+        // Apply the updates
+        if (updates.containsKey("criminalId")) {
+            fir.setCriminalId(new BigInteger(updates.get("criminalId").toString()));
+        }
+
+        // Add other fields as needed
+
+        FIR updatedFir = firService.addFir(fir);
+        return new ResponseEntity<>(updatedFir, HttpStatus.OK);
     }
 }

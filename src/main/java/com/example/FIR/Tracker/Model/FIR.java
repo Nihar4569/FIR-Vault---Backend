@@ -83,4 +83,65 @@ public class FIR {
     @NotNull
     private BigInteger stationId;
 
+    // In FIR.java:
+    private BigInteger criminalId;
+
+    public BigInteger getCriminalId() {
+        return criminalId;
+    }
+
+    public void setCriminalId(BigInteger criminalId) {
+        this.criminalId = criminalId;
+    }
+
+    //Setter & Getter
+
+
+    public int getFirId() {
+        return firId;
+    }
+
+    public void setFirId(int firId) {
+        this.firId = firId;
+    }
+
+    public LocalDate getComplainDate() {
+        return complainDate;
+    }
+
+    public void setComplainDate(LocalDate complainDate) {
+        this.complainDate = complainDate;
+    }
+
+    public LocalDate getIncidentDate() {
+        return incidentDate;
+    }
+
+    public void setIncidentDate(LocalDate incidentDate) {
+        this.incidentDate = incidentDate;
+    }
+
+    public String getIncidentLocation() {
+        return incidentLocation;
+    }
+
+    public void setIncidentLocation(String incidentLocation) {
+        this.incidentLocation = incidentLocation;
+    }
+
+    public BigInteger getVictimId() {
+        return victimId;
+    }
+
+    public void setVictimId(BigInteger victimId) {
+        this.victimId = victimId;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }
